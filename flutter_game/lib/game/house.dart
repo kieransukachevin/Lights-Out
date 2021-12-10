@@ -31,6 +31,13 @@ class House {
       index++;
     }
 
+    for (var hallway in _hallways) {
+      var total = Random().nextInt(1) + 1;
+      for (int i = 0; i <= total; i++) {
+        hallway.addLamp();
+      }
+    }
+
     // Lable each door with an id.
     labelDoors(_hallways);
 

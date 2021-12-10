@@ -2,6 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter_game/game/background.dart';
 import 'package:flutter_game/game/player.dart';
 import 'package:flutter_game/game/lamp.dart';
 import 'package:flutter_game/game/hallway.dart';
@@ -14,6 +15,8 @@ const numHallways = 4;
 class BaseGame extends FlameGame {
   final Player _player = Player();
   final House _house = House(numHallways);
+  Watcher watcher = Watcher.instance;
+  Background background = Background();
 
   late double gameWidth;
   late double gameHeight;
@@ -21,13 +24,14 @@ class BaseGame extends FlameGame {
   @override
   Future<void> onLoad() async {
     await super.onLoad();
+    add(background);
     addAll(_house.getCurrentHallway().getDoors());
+    addAll(_house.getCurrentHallway().getLamps());
     add(_player);
 
-    Watcher watcher = Watcher.instance;
     watcher.addListener(() {
       _house.setCurrentHallway(watcher.getDoor());
-      _player.setPosition(watcher.getPosition());
+      _player.setXPosition(watcher.getDoor()!.getLinkedDoor()!.getWidth().x);
     });
   }
 
@@ -35,7 +39,9 @@ class BaseGame extends FlameGame {
   void update(double dt) {
     super.update(dt);
     removeAll(children);
+    add(background);
     addAll(_house.getCurrentHallway().getDoors());
+    addAll(_house.getCurrentHallway().getLamps());
     add(_player);
   }
 
@@ -66,6 +72,16 @@ class BaseGame extends FlameGame {
           _player.getCenterX() <= door.getWidth().y) {
         print('Door Found');
         door.playAnimation();
+      }
+    }
+  }
+
+  void checkForLamp() {
+    for (Lamp lamp in _house.getCurrentHallway().getLamps()) {
+      if (lamp.getWidth().x <= _player.getCenterX() &&
+          _player.getCenterX() <= lamp.getWidth().y) {
+        print('Door Found');
+        lamp.lightSwitch();
       }
     }
   }

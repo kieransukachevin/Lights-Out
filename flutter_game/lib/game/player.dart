@@ -6,7 +6,7 @@ import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/animation.dart';
 
-const double topBottomSpacing = 10;
+const double topBottomSpacing = 9;
 const int numberOfTilesAlongWidth = 30;
 const double animationTime = 0.1;
 
@@ -85,8 +85,8 @@ class Player extends SpriteAnimationComponent {
     position = Vector2(xPosition, yPosition);
   }
 
-  void setPosition(Vector2 newPosition) {
-    position.x = newPosition.x;
+  void setXPosition(double newPosition) {
+    xPosition = newPosition;
   }
 
   void setGameWidth(double width) {

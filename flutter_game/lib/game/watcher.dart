@@ -8,16 +8,11 @@ class Watcher with ChangeNotifier {
   static final Watcher instance = Watcher._private();
 
   Door? _door;
-  Vector2 _position = Vector2(0, 0);
 
   void doorOpened(Door door) {
     _door = door;
-    _position = _door!.getWidth();
+    print('New door width is: ${_door!.getLinkedDoor()!.getWidth()}');
     notifyListeners();
-  }
-
-  Vector2 getPosition() {
-    return _position;
   }
 
   Door? getDoor() {

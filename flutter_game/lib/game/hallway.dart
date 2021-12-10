@@ -8,7 +8,6 @@ const int numberOfTilesAlongWidth = 10;
 const int numHallways = 5;
 
 class Hallway {
-  double gameHeight = 0.0;
   bool link = false;
   List<Lamp> lamps = [];
   List<Door> doors = [];

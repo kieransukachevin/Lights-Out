@@ -4,7 +4,6 @@ import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter_game/game/watcher.dart';
 
-const double topBottomSpacing = 10;
 const double animationTime = 0.3;
 
 class Door extends SpriteAnimationComponent {
@@ -29,7 +28,7 @@ class Door extends SpriteAnimationComponent {
   @override
   Future<void> onLoad() async {
     SpriteSheet spriteSheetRight = SpriteSheet(
-        image: await Flame.images.load('door_purple_alt-Sheet.png'),
+        image: await Flame.images.load('door_blue-Sheet.png'),
         srcSize: Vector2(48.0, 36));
     _idleAnimation = spriteSheetRight.createAnimation(
         row: 0, from: 1, to: 2, stepTime: animationTime);
@@ -51,8 +50,8 @@ class Door extends SpriteAnimationComponent {
 
     size = Vector2(gameSize.x / 4, gameSize.x / (192 / 36));
 
-    xPosition = randomNum * (gameSize.x - 24);
-    yPosition = gameSize.y - groundHeight - height + topBottomSpacing;
+    xPosition = randomNum * (gameSize.x - width);
+    yPosition = gameSize.y - groundHeight - height;
 
     position = Vector2(xPosition, yPosition);
   }

@@ -44,6 +44,8 @@ class _ControllerState extends State<Controller> {
       newGame.moveRight();
     } else if (event.isKeyPressed(LogicalKeyboardKey.keyZ)) {
       newGame.checkForDoor();
+    } else if (event.isKeyPressed(LogicalKeyboardKey.keyX)) {
+      newGame.checkForLamp();
     } else {
       newGame.moveStop();
     }

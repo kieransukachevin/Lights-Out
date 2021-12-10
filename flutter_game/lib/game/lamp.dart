@@ -11,6 +11,8 @@ class Lamp extends SpriteComponent {
   double groundHeight = 0.0;
   bool lightOn = false;
   double randomNum = 0.0;
+  Sprite? spriteOff;
+  Sprite? spriteOn;
 
   Lamp() : super() {
     width = 24;
@@ -21,14 +23,15 @@ class Lamp extends SpriteComponent {
 
   @override
   Future<void> onLoad() async {
-    sprite = await Sprite.load('colors.png');
-    anchor = Anchor.center;
+    spriteOff = await Sprite.load('lamp1.png');
+    spriteOn = await Sprite.load('lamp2.png');
+    sprite = spriteOff;
   }
 
   @override
   void onGameResize(Vector2 gameSize) {
     super.onGameResize(gameSize);
-    groundHeight = gameSize.y * 0.3;
+    groundHeight = gameSize.y * 0.5;
 
     width = height = gameSize.x / 8;
     x = randomNum * (gameSize.x - 24);
@@ -36,11 +39,17 @@ class Lamp extends SpriteComponent {
     y = gameSize.y - groundHeight - height + topBottomSpacing;
   }
 
+  Vector2 getWidth() {
+    return Vector2(x, x + width);
+  }
+
   void lightSwitch() {
     if (lightOn) {
       lightOn = false;
+      sprite = spriteOff;
     } else {
       lightOn = true;
+      sprite = spriteOn;
     }
   }
 }
