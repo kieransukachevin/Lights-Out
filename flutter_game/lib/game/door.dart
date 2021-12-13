@@ -38,6 +38,7 @@ class Door extends SpriteAnimationComponent {
     _openAnimation?.onComplete = () {
       animation = _idleAnimation;
       watcher?.doorOpened(this);
+      _openAnimation?.reset();
     };
 
     animation = _idleAnimation;
