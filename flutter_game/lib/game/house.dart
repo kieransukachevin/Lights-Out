@@ -1,11 +1,9 @@
 import 'dart:math';
 import 'package:flutter_game/game/hallway.dart';
-import 'package:flutter_game/game/watcher.dart';
-
 import 'door.dart';
 
 class House {
-  List<Hallway> _hallways = [];
+  final List<Hallway> _hallways = [];
   Hallway _currentHallway = Hallway();
   bool hallwaysLinked = false;
 
@@ -31,6 +29,7 @@ class House {
       index++;
     }
 
+    // Add a random number of lamps to each hallway.
     for (var hallway in _hallways) {
       var total = Random().nextInt(1) + 1;
       for (int i = 0; i <= total; i++) {
@@ -38,7 +37,7 @@ class House {
       }
     }
 
-    // Lable each door with an id.
+    // Label each door with an id.
     labelDoors(_hallways);
 
     // Link hallways.
@@ -54,21 +53,18 @@ class House {
     _currentHallway = _hallways[Random().nextInt(totalHallways - 1)];
   }
 
+  // Update the current hallway to the hallway with the new door.
   void setCurrentHallway(Door? newDoor) {
     for (var hallway in _hallways) {
       for (var door in hallway.getDoors()) {
         if (door.getId() == newDoor?.getLinkedDoor()?.getId()) {
           _currentHallway = hallway;
-          print('hallway changed');
         }
       }
     }
   }
 
-  Hallway getCurrentHallway() {
-    return _currentHallway;
-  }
-
+  // Link the hallways so that each hallway is accessible.
   void linkHallway(Hallway hallway, List<Hallway> allHallways) {
     for (var door in hallway.getDoors()) {
       if (door.isLinked()) continue;
@@ -83,7 +79,7 @@ class House {
           if (innerDoor.isLinked() || door.getId() == innerDoor.getId()) {
             continue;
           } else {
-            print('link door ${door.getId()} with ${innerDoor.getId()}');
+            // print('link door ${door.getId()} with ${innerDoor.getId()}');
             hallway.setLinked();
             innerHallway.setLinked();
             door.linkDoor(innerDoor);
@@ -94,6 +90,10 @@ class House {
         }
       }
     }
+  }
+
+  Hallway getCurrentHallway() {
+    return _currentHallway;
   }
 }
 
@@ -114,7 +114,7 @@ bool checkIfAllHallwaysAreLinked(List<Hallway> allHallways) {
       allLinked = false;
     }
   }
-  if (allLinked) print('All hallways linked!');
+  // if (allLinked) print('All hallways linked!');
   return allLinked;
 }
 

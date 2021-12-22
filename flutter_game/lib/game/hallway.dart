@@ -1,4 +1,3 @@
-import 'package:flame/components.dart';
 import 'package:flutter_game/game/lamp.dart';
 import 'package:flutter_game/game/door.dart';
 
@@ -11,7 +10,6 @@ class Hallway {
   bool link = false;
   List<Lamp> lamps = [];
   List<Door> doors = [];
-  Vector2 playerPostion = Vector2(0, 0);
 
   Hallway();
 
@@ -23,16 +21,12 @@ class Hallway {
     doors.add(Door());
   }
 
-  bool isLinked() {
-    return link;
-  }
-
   void setLinked() {
     link = true;
   }
 
-  void setPlayerPosition(Vector2 position) {
-    playerPostion = position;
+  bool isLinked() {
+    return link;
   }
 
   List<Door> getDoors() {
@@ -41,9 +35,5 @@ class Hallway {
 
   List<Lamp> getLamps() {
     return lamps;
-  }
-
-  Vector2 getPlayerPosition() {
-    return playerPostion;
   }
 }

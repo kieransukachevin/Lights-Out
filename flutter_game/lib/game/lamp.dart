@@ -1,16 +1,13 @@
 import 'dart:math';
-import 'dart:ui' as ui;
 import 'package:flame/components.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
-import 'package:flutter/material.dart';
 
 const double topBottomSpacing = 10;
 
 class Lamp extends SpriteComponent {
-  double groundHeight = 0.0;
+  late double groundHeight;
+  late double randomNum;
   bool lightOn = false;
-  double randomNum = 0.0;
   Sprite? spriteOff;
   Sprite? spriteOn;
 
@@ -33,16 +30,14 @@ class Lamp extends SpriteComponent {
     super.onGameResize(gameSize);
     groundHeight = gameSize.y * 0.5;
 
+    // Resize the lamp based no the game size.
     width = height = gameSize.x / 8;
     x = randomNum * (gameSize.x - 24);
 
     y = gameSize.y - groundHeight - height + topBottomSpacing;
   }
 
-  Vector2 getWidth() {
-    return Vector2(x, x + width);
-  }
-
+  // Toggle the light switch on and off.
   void lightSwitch() {
     if (lightOn) {
       lightOn = false;
@@ -51,5 +46,9 @@ class Lamp extends SpriteComponent {
       lightOn = true;
       sprite = spriteOn;
     }
+  }
+
+  Vector2 getWidth() {
+    return Vector2(x, x + width);
   }
 }

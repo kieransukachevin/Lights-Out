@@ -1,10 +1,6 @@
-import 'dart:ui';
-
-import 'package:flame/assets.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
-import 'package:flutter/animation.dart';
 
 const double topBottomSpacing = 9;
 const int numberOfTilesAlongWidth = 30;
@@ -78,6 +74,7 @@ class Player extends SpriteAnimationComponent {
     maxSpeed = gameSize.x * 0.5;
     groundHeight = gameSize.y * 0.3;
 
+    // Resize player based on the game size.
     size = Vector2.all(gameSize.x / 8);
 
     yPosition = gameSize.y - groundHeight - height + topBottomSpacing;
@@ -116,12 +113,12 @@ class Player extends SpriteAnimationComponent {
     animation = _runAnimationLeft;
   }
 
-  double getCenterX() {
-    return (x * 2 + width) / 2;
-  }
-
   void idle() {
     if (animation == _runAnimationRight) animation = _idleAnimationRight;
     if (animation == _runAnimationLeft) animation = _idleAnimationLeft;
+  }
+
+  double getCenterX() {
+    return (x * 2 + width) / 2;
   }
 }
